@@ -25,6 +25,7 @@
         </div>
     </header>
     <nav>
+        <x-navbar />
     </nav>
     <section>
         <article>

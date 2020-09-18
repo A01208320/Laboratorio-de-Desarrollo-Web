@@ -1,7 +1,8 @@
 @extends("layout")
+
 @section("article")
 <div class="container">
-    <div class="row">
+    <div class="row p-2 d-flex justify-content-center">
 
         @foreach($autores as $isbn => $autor)
         <div class="col">
@@ -10,5 +11,6 @@
         @endforeach
 
     </div>
+
 </div>
 @endsection

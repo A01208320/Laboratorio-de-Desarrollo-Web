@@ -11,13 +11,13 @@ class controller_home extends Controller
         $autores = [
             "1" => [
                 "isbn" => "1",
-                "nombre" => "Saúl Axel Palacios Acosta",
+                "nombre" => "Saúl Palacios Acosta",
                 "matricula" => "A01208320",
                 "experiencia" => "HTML, CSS, PHP, Bootstrap, Angular Js"
             ],
             "2" => [
                 "isbn" => "2",
-                "nombre" => "Alberto Alonso Vázquez Plata",
+                "nombre" => "Alberto Vázquez Plata",
                 "matricula" => "A01207490",
                 "experiencia" => "HTML, CSS, PHP, Bootstrap, Angular Js"
             ]
