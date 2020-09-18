@@ -17,3 +17,21 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get("/catalogo_autores", function () {
+
+    $autores = [
+        "1" => [
+            "nombre" => "Saúl Axel Palacios Acosta",
+            "matricula" => "A01208320",
+            "experiencia" => "HTML, CSS, PHP, Bootstrap, Angular Js"
+        ],
+        "2" => [
+            "nombre" => "Alberto Alonso Vázquez Plata",
+            "matricula" => "A01207490",
+            "experiencia" => "HTML, CSS, PHP, Bootstrap, Angular Js"
+        ]
+    ];
+    return $autores;
+});
