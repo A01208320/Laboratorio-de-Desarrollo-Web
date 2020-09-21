@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <header class="bg-primary">
+    <header class="bg-secondary">
         <div class="container-fluid">
             <div class="row p-2">
                 <div class="col-sm">

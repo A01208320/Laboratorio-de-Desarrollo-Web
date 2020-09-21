@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", "controller_home@index");
 
-
+Route::get("/titulos", "TituloController@index");
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

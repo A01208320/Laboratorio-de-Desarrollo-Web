@@ -6,7 +6,7 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ $autor["matricula"] }}</h6>
             <h6 class="card-subtitle mb-2">Experiencia</h6>
             <p class="card-text">{{ $autor["experiencia"] }}</p>
-            <button class="btn btn-red-darken-3">Details</button>
+            <button class="btn btn-gold-primary">Details</button>
         </div>
     </div>
 </div>
