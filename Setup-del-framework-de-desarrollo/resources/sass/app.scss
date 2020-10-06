@@ -1,1 +1,22 @@
-//
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+@import url("https://fonts.googleapis.com/css2?family=Pirata+One");
+
+// Variables
+@import "variables";
+@import "colors.scss";
+@import "theme_colors.scss";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+$font-stack-montserrat: Montserrat;
+$font-stack-pirate-one: Pirate One;
+
+body {
+    font: 100% $font-stack-montserrat;
+}
+
+nav {
+    font: 100% $font-stack-pirate-one;
+}
