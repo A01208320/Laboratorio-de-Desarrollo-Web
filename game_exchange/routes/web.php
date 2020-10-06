@@ -22,8 +22,25 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('admin', function () {
-    return 'you are admin';
+Route::get('administrator', function () {
+    return 'you are administrator';
 })->middleware([
-    'auth', 'auth.admin'
+    'auth', 'auth.Administrator'
 ]);
+
+Route::get('registeredUser', function () {
+    return 'you are registeredUser';
+})->middleware([
+    'auth', 'auth.RegisteredUser'
+]);
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+});
