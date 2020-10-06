@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Platform;
 use Illuminate\Database\Seeder;
 
 class PlatformSeeder extends Seeder
@@ -14,5 +15,8 @@ class PlatformSeeder extends Seeder
     public function run()
     {
         //
+        Platform::create(['name' => 'Nintendo Switch']);
+        Platform::create(['name' => 'Xbox Series X']);
+        Platform::create(['name' => 'Play Switch']);
     }
 }
