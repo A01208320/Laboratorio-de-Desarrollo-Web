@@ -14,7 +14,22 @@ class TitleController extends Controller
      */
     public function index()
     {
-        //
+        if (request('query')) {
+            $titles = $this->search()->paginate(5);
+        } else {
+            $titles = Title::paginate(5);
+        }
+        return view('titles.index', compact('titles'));
+    }
+
+    public function search()
+    {
+        $value = '%' . request('query') . '%';
+        $titles = Title::where('name', 'LIKE', $value)
+            ->orWhere('edition', 'LIKE', $value)
+            ->orWhere('platforms.name', 'LIKE', $value)
+            ->join('platforms', 'titles.platform_id', '=', 'platforms.id');
+        return $titles;
     }
 
     /**

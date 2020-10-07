@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Platform extends Model
 {
+    protected $guarded = [];
     use HasFactory;
+    public function titles()
+    {
+        return $this->hasMany(Titles::class);
+    }
 }

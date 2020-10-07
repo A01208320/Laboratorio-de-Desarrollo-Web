@@ -3,10 +3,10 @@ a:hover {
 }
 
 .grad {
-    background: rgb(103, 4, 4);
+    background: rgb(135, 235, 255);
     background: linear-gradient(
         180deg,
-        rgba(103, 4, 4, 1) 0%,
+        rgba(135, 235, 255, 0.7010154403558299) 0%,
         rgba(255, 255, 255, 1) 40%
     );
 }

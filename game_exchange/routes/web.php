@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TitleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,14 +34,15 @@ Route::get('registeredUser', function () {
 })->middleware([
     'auth', 'auth.RegisteredUser'
 ]);
+Route::resource("/titles", "TitleController");
+Route::resource("/reviews", "ReviewController")->middleware(['auth', 'auth.registeredUser']);;
+Route::get("/titles/{title}/confirm", "TitleController@confirm")->name('titles.confirm')->middleware(['auth', 'auth.Administrator']);
 
-
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
-], function ($router) {
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+/*
+Route::prefix('administrator')->name('administrator.')->group(function () {
+    Route::resource('/titles', 'TitleController');
 });
+*/
+
+
+//['except' => ['']]
