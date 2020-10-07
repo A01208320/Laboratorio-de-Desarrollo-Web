@@ -14,6 +14,6 @@ class PlatformSeeder extends Seeder
     {
         Platform::create(['name' => 'Nintendo Switch']);
         Platform::create(['name' => 'Xbox Series X']);
-        Platform::create(['name' => 'Play Switch']);
+        Platform::create(['name' => 'PlayStation 5']);
     }
 }

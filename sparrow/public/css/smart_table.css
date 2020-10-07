@@ -24,7 +24,7 @@
         width: 45%;
         content: attr(data-col-title);
         font-weight: bold;
-        background-color: #163683;
+        background-color: #dba622;
         color: white;
     }
 }

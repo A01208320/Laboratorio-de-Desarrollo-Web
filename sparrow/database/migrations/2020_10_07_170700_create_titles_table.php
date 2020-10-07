@@ -18,12 +18,12 @@ class CreateTitlesTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('edition');
+            $table->boolean('state')->default('0');
             $table->unsignedBigInteger('platform_id');
             $table->foreign('platform_id')
                 ->references('id')
                 ->on('platforms')
                 ->onDelete('cascade');
-            $table->boolean('state');
             $table->unique(['name', 'edition', 'platform_id']);
         });
     }

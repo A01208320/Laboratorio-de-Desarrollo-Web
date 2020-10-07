@@ -4,6 +4,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Plataforma</th>
             <th scope="col">Edición</th>
+            <th scope="col">Estado</th>
             <th scope="col">Acciones</th>
         </tr>
     </thead>
@@ -11,9 +12,23 @@
         @forelse($titles as $title)
         <tr>
             <td data-col-title="Nombre">{{ $title->name }}</td>
-            <td data-col-title="Plataforma">Hello</td>
+            <td data-col-title="Plataforma">{{ $title->platform_name }}</td>
             <td data-col-title="Edición">{{ $title->edition }}</td>
+            <td data-col-title="Estado">
+                @if($title->state == '1')
+                Aprobado
+                @else
+                Pendiente
+                @endif
+            </td>
             <td data-col-title="Acciones" class="d-flex justify-content-start align-items-center">
+                @if($title->state == '0')
+                <a href="{{route('titles.edit', $title)}}" class="p-1">
+                    <button class="btn btn-primary btn-circle btn-sm">
+                        <img src="{{ asset('img/icons/check.svg')}}" class="icon-white" alt="search" width="17px" height="17px">
+                    </button>
+                </a>
+                @endif
                 <a href="{{route('titles.edit', $title)}}" class="p-1">
                     <button class="btn btn-primary btn-circle btn-sm">
                         <img src="{{ asset('img/icons/edit.svg')}}" class="icon-white" alt="search" width="17px" height="17px">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Title;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,30 @@ class TitleController extends Controller
      */
     public function index()
     {
-        //
+        $titles = Title::getAllTitles();
+        if (\Request::is('api/*')) {
+            return response()->json($titles->get(), 200);
+            exit();
+        }
+        if (request('query')) {
+            $titles = $this->search()->paginate(5);
+        } else {
+            $titles = $titles->paginate(5);
+        }
+        return view('titles.index', compact('titles'));
+    }
+
+
+    public function search()
+    {
+        $value = request('query');
+        if ($value == 'Aprobado' || $value == 'aprobado') {
+            $value = 1;
+        } else if ($value == 'Pendiente' || $value == 'pendiente') {
+            $value = 0;
+        }
+        $titles = Title::filterTitles($value);
+        return $titles;
     }
 
     /**
