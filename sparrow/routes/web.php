@@ -21,3 +21,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('administrator', function () {
+    return 'you are administrator';
+})->middleware([
+    'auth', 'auth.Administrator'
+]);
+
+Route::get('registeredUser', function () {
+    return 'you are registeredUser';
+})->middleware([
+    'auth', 'auth.RegisteredUser'
+]);
