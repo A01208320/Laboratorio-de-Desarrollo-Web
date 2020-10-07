@@ -1,5 +1,6 @@
 <?php
 
+use App\Role;
 use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
@@ -11,6 +12,8 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Role::create(['name' => 'administrator']);
+        Role::create(['name' => 'registeredUser']);
+        Role::create(['name' => 'user']);
     }
 }
