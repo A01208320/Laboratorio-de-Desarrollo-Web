@@ -39,7 +39,9 @@ class User extends Authenticatable
 
     public function titles()
     {
-        return $this->belongsToMany(Title::class)->withTimestamps();;
+        return $this->belongsToMany(Title::class)
+            ->withPivot('recomendation', 'comment')
+            ->withTimestamps();
     }
 
     public function roles()

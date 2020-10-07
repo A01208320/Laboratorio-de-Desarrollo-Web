@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Review;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,9 @@ class ReviewController extends Controller
     public function index()
     {
         //
+        $auth_user_id = auth()->user()->id;
+        $user = User::find($auth_user_id);
+        return $user->titles;
     }
 
     /**

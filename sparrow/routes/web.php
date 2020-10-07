@@ -35,5 +35,7 @@ Route::get('registeredUser', function () {
 ]);
 
 Route::resource("/titles", "TitleController");
-Route::resource("/reviews", "ReviewController")->middleware(['auth', 'auth.registeredUser']);;
+Route::resource("/reviews", "ReviewController")->middleware([
+    'auth', 'auth.RegisteredUser'
+]);
 Route::get("/titles/{title}/confirm", "TitleController@confirm")->name('titles.confirm')->middleware(['auth', 'auth.Administrator']);

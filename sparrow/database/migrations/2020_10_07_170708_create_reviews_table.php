@@ -13,7 +13,7 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('title_user', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('title_id');
@@ -39,6 +39,6 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('title_user');
     }
 }
