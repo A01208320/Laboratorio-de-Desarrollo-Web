@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $administrator_role = Role::where('name', 'administrator')->first();
-        $registered_user_role = Role::where('name', 'registered_user')->first();
+        $registeredUser_role = Role::where('name', 'registeredUser')->first();
         $user_role = Role::where('name', 'user')->first();
 
         $administrator = User::create([
@@ -25,10 +25,10 @@ class UserSeeder extends Seeder
             'password' => bcrypt('administrator')
         ]);
 
-        $registered_user = User::create([
-            'name' => 'registered_user',
-            'email' => 'registered_user@registered_user.com',
-            'password' => bcrypt('registered_user')
+        $registeredUser = User::create([
+            'name' => 'registeredUser',
+            'email' => 'registeredUser@registeredUser.com',
+            'password' => bcrypt('registeredUser')
         ]);
 
         $user = User::create([
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         ]);
 
         $administrator->roles()->attach($administrator_role);
-        $registered_user->roles()->attach($registered_user_role);
+        $registeredUser->roles()->attach($registeredUser_role);
         $user->roles()->attach($user_role);
     }
 }

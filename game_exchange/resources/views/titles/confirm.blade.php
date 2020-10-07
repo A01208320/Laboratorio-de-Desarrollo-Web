@@ -1,7 +1,6 @@
-@extends("layout")
-@section('head')
-@endsection
-@section("content")
+@extends('layouts.app')
+
+@section('content')
 <div class="row p-2 mt-2 d-flex justify-content-center align-items-center">
     <div class="col-12 col-sm-11 col-md-8 col-lg-6 col-xl-5">
         <div class="alert alert-danger w-100" role="alert">
@@ -14,11 +13,16 @@
                         Cancelar
                     </button>
                 </a>
-                <a href="{{route('clases.destroy', $clase)}}" class="pl-2 ">
+
+                <form method="POST" class="pl-2 " action="{{route('clases.destroy', $clase)}}">
+                    @csrf
+                    @method('DELETE')
                     <button class="btn btn-primary">
                         Aceptar
                     </button>
-                </a>
+                </form>
+
+
             </div>
         </div>
     </div>

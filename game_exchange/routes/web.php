@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TitleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +23,26 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('admin', function () {
-    return 'you are admin';
+Route::get('administrator', function () {
+    return 'you are administrator';
 })->middleware([
-    'auth', 'auth.admin'
+    'auth', 'auth.Administrator'
 ]);
+
+Route::get('registeredUser', function () {
+    return 'you are registeredUser';
+})->middleware([
+    'auth', 'auth.RegisteredUser'
+]);
+Route::resource("/titles", "TitleController");
+Route::resource("/reviews", "ReviewController")->middleware(['auth', 'auth.registeredUser']);;
+Route::get("/titles/{title}/confirm", "TitleController@confirm")->name('titles.confirm')->middleware(['auth', 'auth.Administrator']);
+
+/*
+Route::prefix('administrator')->name('administrator.')->group(function () {
+    Route::resource('/titles', 'TitleController');
+});
+*/
+
+
+//['except' => ['']]

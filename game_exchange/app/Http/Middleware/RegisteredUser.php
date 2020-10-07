@@ -3,12 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-class AccessAdmin
+class RegisteredUser
 {
     /**
      * Handle an incoming request.
@@ -17,9 +15,9 @@ class AccessAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        if (Auth::user()->hasAnyRole('admin')) {
+        if (Auth::user()->hasAnyRole('registeredUser')) {
             return $next($request);
         }
         return redirect('home');

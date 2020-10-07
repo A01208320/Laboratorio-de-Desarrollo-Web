@@ -10,7 +10,7 @@ class PlatformSeeder extends Seeder
     /**
      * Run the database seeds.
      *
-     * @return void
+     * @return voidSS
      */
     public function run()
     {
