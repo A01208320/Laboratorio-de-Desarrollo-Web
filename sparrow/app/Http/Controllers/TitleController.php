@@ -68,10 +68,18 @@ class TitleController extends Controller
     public function store(Request $request)
     {
         $this->validateTitle();
+        $auth_user = auth()->user();
+        $user = User::find($auth_user->id);
+        if ($user->hasAnyRole('registeredUser')) {
+            $state = 0;
+        } else {
+            $state = 1;
+        }
         $review = Title::firstOrCreate(([
             'name' => $request->name,
             'edition' => $request->edition,
             'platform_id' => $request->platform_id,
+            'state' => $state,
         ]));
         return view('titles.success');
     }
@@ -95,7 +103,8 @@ class TitleController extends Controller
      */
     public function edit(Title $title)
     {
-        //
+        $platforms = Platform::all();
+        return view('titles.edit', compact('title', 'platforms'));
     }
 
     /**
@@ -107,7 +116,13 @@ class TitleController extends Controller
      */
     public function update(Request $request, Title $title)
     {
-        //
+        $title->update([
+            'name' => $request->name,
+            'edition' => $request->edition,
+            'platform_id' => $request->platform_id,
+            'state' => $request->state,
+        ]);
+        return view('titles.success');
     }
 
     public function confirm(Title $title)

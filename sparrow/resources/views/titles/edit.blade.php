@@ -3,19 +3,19 @@
 @section('content')
 
 <div class="card-header">
-    {{ __('Editar') }}
+    {{ __('Registrar') }}
 </div>
 
 <div class="card-body">
-    <form method="POST" action="{{route('clases.update', $clase)}}">
+    <form method="POST" action="{{route('titles.update', $title)}}">
         @csrf
         @method('PUT')
 
         <div class="form-group row">
-            <label for="clase_nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
+            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
             <div class="col-md-6">
-                <input id="clase_nombre" type="text" class="form-control @error('clase_nombre') is-invalid error-input @enderror" name="clase_nombre" value="{{ $clase->clase_nombre }}" required autocomplete="clase_nombre" autofocus>
-                @error('clase_nombre')
+                <input id="name" type="text" class="form-control @error('name') is-invalid error-input @enderror" name="name" value="{{ $title->name }}" required autocomplete="name" autofocus>
+                @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -24,23 +24,10 @@
         </div>
 
         <div class="form-group row">
-            <label for="clase_hora_inicio" class="col-md-4 col-form-label text-md-right">{{ __('Hora de inicio') }}</label>
+            <label for="edition" class="col-md-4 col-form-label text-md-right">{{ __('Edición') }}</label>
             <div class="col-md-6">
-                <input id="clase_hora_inicio" type="time" class="form-control @error('clase_hora_inicio') is-invalid error-input @enderror" name="clase_hora_inicio" value="{{ $clase->clase_hora_inicio }}" required autocomplete="clase_hora_inicio" autofocus>
-                @error('clase_hora_inicio')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </div>
-
-
-        <div class="form-group row">
-            <label for="clase_hora_fin" class="col-md-4 col-form-label text-md-right">{{ __('Hora de finalización') }}</label>
-            <div class="col-md-6">
-                <input id="clase_hora_fin" type="time" class="form-control @error('clase_hora_fin') is-invalid error-input @enderror" name="clase_hora_fin" value="{{ $clase->clase_hora_fin }}" required autocomplete="clase_hora_fin" autofocus>
-                @error('clase_hora_fin')
+                <input id="edition" type="text" class="form-control @error('edition') is-invalid error-input @enderror" name="edition" value="{{ $title->edition }}" required autocomplete="edition" autofocus>
+                @error('edition')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -49,14 +36,14 @@
         </div>
 
         <div class="form-group row">
-            <label for="coach_id" class="col-md-4 col-form-label text-md-right">{{ __('Coach') }}</label>
+            <label for="platform_id" class="col-md-4 col-form-label text-md-right">{{ __('Plataforma') }}</label>
             <div class="col-md-6">
-                <select id="coach_id" type="text" class="custom-select @error('coach_id') is-invalid error-input @enderror" name="coach_id" value="{{ $clase->coach_id }}" required autocomplete="coach_id" autofocus>
-                    @foreach($coaches as $coach)
-                    <option value="{{$coach->id}}">{{$coach->coach_nombre}}</option>
+                <select id="platform_id" type="text" class="custom-select @error('platform_id') is-invalid error-input @enderror" name="platform_id" value="{{ $title->platform_id }}" required autocomplete="platform_id" autofocus>
+                    @foreach($platforms as $platform)
+                    <option value="{{$platform->id}}">{{$platform->name}}</option>
                     @endforeach
                 </select>
-                @error('coach_id')
+                @error('platform_id')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -65,20 +52,20 @@
         </div>
 
         <div class="form-group row">
-            <label for="dias" class="col-md-4 col-form-label text-md-right">{{ __('Días') }}</label>
+            <label for="state" class="col-md-4 col-form-label text-md-right">{{ __('Estado') }}</label>
             <div class="col-md-6">
-                <select id="dias" type="text" class="custom-select @error('dias') is-invalid error-input @enderror" name="dias[]" value="{{ $clase->dias }}" required autocomplete="dias" autofocus multiple>
-                    @foreach($dias as $dia)
-                    <option value="{{$dia->id}}">{{$dia->dia_nombre}}</option>
-                    @endforeach
+                <select id="state" type="text" class="custom-select @error('state') is-invalid error-input @enderror" name="state" value="{{ $title->state }}" required autocomplete="state" autofocus>
+                    <option value="1">Aprobado</option>
+                    <option value="0">Pendiente</option>
                 </select>
-                @error('dias')
+                @error('state')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
             </div>
         </div>
+
 
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
