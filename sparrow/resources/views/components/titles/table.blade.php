@@ -5,7 +5,9 @@
             <th scope="col">Plataforma</th>
             <th scope="col">Edición</th>
             <th scope="col">Estado</th>
+            @hasRole('Administrator')
             <th scope="col">Acciones</th>
+            @endhasRole
         </tr>
     </thead>
     <tbody>
@@ -21,14 +23,8 @@
                 Pendiente
                 @endif
             </td>
+            @hasRole('Administrator')
             <td data-col-title="Acciones" class="d-flex justify-content-start align-items-center">
-                @if($title->state == '0')
-                <a href="{{route('titles.edit', $title)}}" class="p-1">
-                    <button class="btn btn-primary btn-circle btn-sm">
-                        <img src="{{ asset('img/icons/check.svg')}}" class="icon-white" alt="search" width="17px" height="17px">
-                    </button>
-                </a>
-                @endif
                 <a href="{{route('titles.edit', $title)}}" class="p-1">
                     <button class="btn btn-primary btn-circle btn-sm">
                         <img src="{{ asset('img/icons/edit.svg')}}" class="icon-white" alt="search" width="17px" height="17px">
@@ -40,6 +36,7 @@
                     </button>
                 </a>
             </td>
+            @endhasRole
         </tr>
         <tr>
             @empty

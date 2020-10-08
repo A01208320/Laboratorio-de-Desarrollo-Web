@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Platform;
 use App\User;
 use App\Title;
 use Illuminate\Http\Request;
@@ -15,6 +16,8 @@ class TitleController extends Controller
      */
     public function index()
     {
+        $auth_user = auth()->user();
+        $user = User::find($auth_user->id);
         $titles = Title::getAllTitles();
         if (\Request::is('api/*')) {
             return response()->json($titles->get(), 200);
@@ -23,7 +26,11 @@ class TitleController extends Controller
         if (request('query')) {
             $titles = $this->search()->paginate(5);
         } else {
-            $titles = $titles->paginate(5);
+            if ($user->hasAnyRole('registeredUser')) {
+                $titles = Title::getApprovedTitles()->paginate(5);
+            } else {
+                $titles = $titles->paginate(5);
+            }
         }
         return view('titles.index', compact('titles'));
     }
@@ -37,7 +44,13 @@ class TitleController extends Controller
         } else if ($value == 'Pendiente' || $value == 'pendiente') {
             $value = 0;
         }
-        $titles = Title::filterTitles($value);
+        $auth_user = auth()->user();
+        $user = User::find($auth_user->id);
+        if ($user->hasAnyRole('registeredUser')) {
+            $titles = Title::filterApprovedTitles($value);
+        } else {
+            $titles = Title::filterAllTitles($value);
+        }
         return $titles;
     }
 
@@ -48,7 +61,8 @@ class TitleController extends Controller
      */
     public function create()
     {
-        //
+        $platforms = Platform::all();
+        return view('titles.create', compact('platforms'));
     }
 
     /**
@@ -59,7 +73,21 @@ class TitleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateTitle();
+        $auth_user = auth()->user();
+        $user = User::find($auth_user->id);
+        if ($user->hasAnyRole('registeredUser')) {
+            $state = 0;
+        } else {
+            $state = 1;
+        }
+        $review = Title::firstOrCreate(([
+            'name' => $request->name,
+            'edition' => $request->edition,
+            'platform_id' => $request->platform_id,
+            'state' => $state,
+        ]));
+        return view('titles.success');
     }
 
     /**
@@ -81,7 +109,8 @@ class TitleController extends Controller
      */
     public function edit(Title $title)
     {
-        //
+        $platforms = Platform::all();
+        return view('titles.edit', compact('title', 'platforms'));
     }
 
     /**
@@ -93,7 +122,18 @@ class TitleController extends Controller
      */
     public function update(Request $request, Title $title)
     {
-        //
+        $title->update([
+            'name' => $request->name,
+            'edition' => $request->edition,
+            'platform_id' => $request->platform_id,
+            'state' => $request->state,
+        ]);
+        return view('titles.success');
+    }
+
+    public function confirm(Title $title)
+    {
+        return view('titles.confirm', compact('title'));
     }
 
     /**
@@ -104,6 +144,21 @@ class TitleController extends Controller
      */
     public function destroy(Title $title)
     {
-        //
+        Title::destroy($title->id);
+        return view('titles.success');
+    }
+
+    public function validateTitle()
+    {
+        $rules = [
+            'name' => ['required'],
+            'edition' => ['required'],
+            'platform_id' => ['required'],
+
+        ];
+        $custom_messages = [
+            'name.required' => 'Proporciona un nombre.',
+        ];
+        return request()->validate($rules, $custom_messages);
     }
 }
