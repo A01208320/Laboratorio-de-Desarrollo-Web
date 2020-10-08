@@ -69,7 +69,7 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        //
+        return view('reviews.edit', compact('review'));
     }
 
     /**
@@ -81,7 +81,12 @@ class ReviewController extends Controller
      */
     public function update(Request $request, Review $review)
     {
-        //
+        //$this->validateReview();
+        $review->update([
+            'recommendation' => $request->recommendation,
+            'comment' => $request->comment,
+        ]);
+        return view('reviews.success');
     }
 
     public function confirm(Review $review)

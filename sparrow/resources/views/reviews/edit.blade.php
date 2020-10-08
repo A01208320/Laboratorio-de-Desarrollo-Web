@@ -7,15 +7,18 @@
 </div>
 
 <div class="card-body">
-    <form method="POST" action="{{route('anuncios.update', $anuncio)}}">
+    <form method="POST" action="{{route('reviews.update', $review)}}">
         @csrf
         @method('PUT')
 
         <div class="form-group row">
-            <label for="anuncio_titulo" class="col-md-4 col-form-label text-md-right">{{ __('Título') }}</label>
+            <label for="recommendation" class="col-md-4 col-form-label text-md-right">{{ __('Recomendación') }}</label>
             <div class="col-md-6">
-                <input id="anuncio_titulo" type="text" class="form-control @error('anuncio_titulo') is-invalid error-input @enderror" name="anuncio_titulo" value="{{ $anuncio->anuncio_titulo }}" required autocomplete="anuncio_titulo" autofocus>
-                @error('anuncio_titulo')
+                <select id="recommendation" type="text" class="custom-select @error('recommendation') is-invalid error-input @enderror" name="recommendation" value="{{ $review->recommendation }}" required autocomplete="recommendation" autofocus>
+                    <option value="1">Recomendado</option>
+                    <option value="0">No Recomendado</option>
+                </select>
+                @error('recommendation')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -24,12 +27,12 @@
         </div>
 
         <div class="form-group row">
-            <label for="anuncio_cuerpo" class="col-md-4 col-form-label text-md-right">{{ __('Cuerpo') }}</label>
+            <label for="comment" class="col-md-4 col-form-label text-md-right">{{ __('Comentario') }}</label>
             <div class="col-md-6">
-                <textarea rows="5" id="anuncio_cuerpo" type="text" class="form-control @error('anuncio_cuerpo') is-invalid error-input @enderror" name="anuncio_cuerpo" value="{{ $anuncio->anuncio_cuerpo }}" required autocomplete="anuncio_cuerpo" autofocus>
-                {{ $anuncio->anuncio_cuerpo }}
+                <textarea rows="5" id="comment" type="text" class="form-control @error('comment') is-invalid error-input @enderror" name="comment" value="{{ $review->comment }}" required autofocus>
+                {{ $review->comment }}
                 </textarea>
-                @error('anuncio_cuerpo')
+                @error('comment')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
