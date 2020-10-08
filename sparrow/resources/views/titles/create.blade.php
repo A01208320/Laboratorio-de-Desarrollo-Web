@@ -35,21 +35,6 @@
         </div>
 
         <div class="form-group row">
-            <label for="state" class="col-md-4 col-form-label text-md-right">{{ __('Estado') }}</label>
-            <div class="col-md-6">
-                <select id="state" type="text" class="custom-select @error('state') is-invalid error-input @enderror" name="state" value="{{ old('state') }}" required autocomplete="state" autofocus>
-                    <option value="1">Nuevo</option>
-                    <option value="0">Usado</option>
-                </select>
-                @error('state')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group row">
             <label for="platform_id" class="col-md-4 col-form-label text-md-right">{{ __('Plataforma') }}</label>
             <div class="col-md-6">
                 <select id="platform_id" type="text" class="custom-select @error('platform_id') is-invalid error-input @enderror" name="platform_id" value="{{ old('platform_id') }}" required autocomplete="platform_id" autofocus>

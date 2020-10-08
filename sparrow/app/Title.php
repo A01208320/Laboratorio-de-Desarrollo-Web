@@ -30,6 +30,19 @@ class Title extends Model
             );
     }
 
+    static public function getApprovedTitles()
+    {
+        return Title::where('titles.state', 'LIKE', 1)
+            ->join('platforms', 'titles.platform_id', '=', 'platforms.id')
+            ->select(
+                'titles.id',
+                'titles.name',
+                'titles.state',
+                'titles.edition',
+                'platforms.name AS platform_name',
+            );
+    }
+
     static public function filterTitles($value)
     {
         $value = '%' . $value . '%';

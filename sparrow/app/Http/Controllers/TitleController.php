@@ -16,6 +16,8 @@ class TitleController extends Controller
      */
     public function index()
     {
+        $auth_user = auth()->user();
+        $user = User::find($auth_user->id);
         $titles = Title::getAllTitles();
         if (\Request::is('api/*')) {
             return response()->json($titles->get(), 200);
@@ -24,7 +26,11 @@ class TitleController extends Controller
         if (request('query')) {
             $titles = $this->search()->paginate(5);
         } else {
-            $titles = $titles->paginate(5);
+            if ($user->hasAnyRole('registeredUser')) {
+                $titles = Title::getApprovedTitles()->paginate(5);
+            } else {
+                $titles = $titles->paginate(5);
+            }
         }
         return view('titles.index', compact('titles'));
     }
@@ -65,7 +71,6 @@ class TitleController extends Controller
         $review = Title::firstOrCreate(([
             'name' => $request->name,
             'edition' => $request->edition,
-            'state' => $request->state,
             'platform_id' => $request->platform_id,
         ]));
         return view('titles.success');
@@ -105,6 +110,11 @@ class TitleController extends Controller
         //
     }
 
+    public function confirm(Title $title)
+    {
+        return view('titles.confirm', compact('title'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -113,7 +123,8 @@ class TitleController extends Controller
      */
     public function destroy(Title $title)
     {
-        //
+        Title::destroy($title->id);
+        return view('titles.success');
     }
 
     public function validateTitle()
@@ -121,7 +132,6 @@ class TitleController extends Controller
         $rules = [
             'name' => ['required'],
             'edition' => ['required'],
-            'state' => ['required'],
             'platform_id' => ['required'],
 
         ];
