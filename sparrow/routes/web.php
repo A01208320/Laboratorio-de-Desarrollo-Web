@@ -40,4 +40,4 @@ Route::resource("/reviews", "ReviewController")->middleware([
 ]);
 Route::get("/titles/{title}/confirm", "TitleController@confirm")->name('titles.confirm')->middleware(['auth', 'auth.Administrator']);
 
-Route::get("/reviews/{review}/confirm", "ReviewController@confirm")->name('reviews.confirm')->middleware(['auth', 'auth.Administrator']);
+Route::get("/reviews/{review}/confirm", "ReviewController@confirm")->name('reviews.confirm')->middleware(['auth', 'auth.RegisteredUser']);

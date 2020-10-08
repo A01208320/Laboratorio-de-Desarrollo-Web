@@ -16,10 +16,8 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
         $auth_user = auth()->user();
         $reviews = Review::getReviews($auth_user->id)->paginate(5);
-        //return $reviews;
         return view('reviews.index', compact('reviews'));
     }
 
@@ -86,6 +84,11 @@ class ReviewController extends Controller
         //
     }
 
+    public function confirm(Review $review)
+    {
+        return view('reviews.confirm', compact('review'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -94,7 +97,8 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        Review::destroy($review->id);
+        return view('reviews.success');
     }
 
     public function validateReview()
