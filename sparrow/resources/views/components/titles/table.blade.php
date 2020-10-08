@@ -5,7 +5,9 @@
             <th scope="col">Plataforma</th>
             <th scope="col">Edición</th>
             <th scope="col">Estado</th>
+            @hasRole('Administrator')
             <th scope="col">Acciones</th>
+            @endhasRole
         </tr>
     </thead>
     <tbody>
@@ -21,6 +23,7 @@
                 Pendiente
                 @endif
             </td>
+            @hasRole('Administrator')
             <td data-col-title="Acciones" class="d-flex justify-content-start align-items-center">
                 @if($title->state == '0')
                 <a href="{{route('titles.edit', $title)}}" class="p-1">
@@ -40,6 +43,7 @@
                     </button>
                 </a>
             </td>
+            @endhasRole
         </tr>
         <tr>
             @empty

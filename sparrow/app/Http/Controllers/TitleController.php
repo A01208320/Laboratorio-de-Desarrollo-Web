@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Platform;
 use App\User;
 use App\Title;
 use Illuminate\Http\Request;
@@ -48,7 +49,8 @@ class TitleController extends Controller
      */
     public function create()
     {
-        //
+        $platforms = Platform::all();
+        return view('titles.create', compact('platforms'));
     }
 
     /**
@@ -59,7 +61,14 @@ class TitleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateTitle();
+        $review = Title::firstOrCreate(([
+            'name' => $request->name,
+            'edition' => $request->edition,
+            'state' => $request->state,
+            'platform_id' => $request->platform_id,
+        ]));
+        return view('titles.success');
     }
 
     /**
@@ -105,5 +114,20 @@ class TitleController extends Controller
     public function destroy(Title $title)
     {
         //
+    }
+
+    public function validateTitle()
+    {
+        $rules = [
+            'name' => ['required'],
+            'edition' => ['required'],
+            'state' => ['required'],
+            'platform_id' => ['required'],
+
+        ];
+        $custom_messages = [
+            'name.required' => 'Proporciona un nombre.',
+        ];
+        return request()->validate($rules, $custom_messages);
     }
 }
