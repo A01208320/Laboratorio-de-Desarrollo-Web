@@ -108,8 +108,9 @@ class ReviewController extends Controller
 
     public function validateReview()
     {
+        $user_id = auth()->user()->id;
         $rules = [
-            'title_id' => ['required', 'unique:title_user'],
+            'title_id' => 'unique:title_user,title_id,NULL,id,user_id,' . $user_id,
             'recommendation' => ['required'],
             'comment' => ['required'],
         ];
