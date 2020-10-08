@@ -44,7 +44,13 @@ class TitleController extends Controller
         } else if ($value == 'Pendiente' || $value == 'pendiente') {
             $value = 0;
         }
-        $titles = Title::filterTitles($value);
+        $auth_user = auth()->user();
+        $user = User::find($auth_user->id);
+        if ($user->hasAnyRole('registeredUser')) {
+            $titles = Title::filterApprovedTitles($value);
+        } else {
+            $titles = Title::filterAllTitles($value);
+        }
         return $titles;
     }
 

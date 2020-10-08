@@ -4,6 +4,7 @@
             <th scope="col">Título</th>
             <th scope="col">Plataforma</th>
             <th scope="col">Edición</th>
+            <th scope="col">Recomendación</th>
             <th scope="col">Acciones</th>
         </tr>
     </thead>
@@ -11,8 +12,15 @@
         @forelse($reviews as $review)
         <tr>
             <td data-col-title="Título">{{ $review->title_name }}</td>
-            <td data-col-title="Creado">{{ $review->platform_name }}</td>
-            <td data-col-title="Actualizado">{{ $review->edition }}</td>
+            <td data-col-title="Plataforma">{{ $review->platform_name }}</td>
+            <td data-col-title="Edición">{{ $review->edition }}</td>
+            <td data-col-title="Recomendación">
+                @if($review->recommendation == '1')
+                Recomendado
+                @else
+                No recomendado
+                @endif
+            </td>
             <td data-col-title="Acciones" class="d-flex justify-content-start align-items-center">
                 <a href="{{route('reviews.show', $review)}}" class="p-1">
                     <button type="button" class="btn btn-primary btn-circle btn-sm">

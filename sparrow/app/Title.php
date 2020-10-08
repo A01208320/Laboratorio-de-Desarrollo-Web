@@ -43,7 +43,7 @@ class Title extends Model
             );
     }
 
-    static public function filterTitles($value)
+    static public function filterAllTitles($value)
     {
         $value = '%' . $value . '%';
         return Title::where('titles.name', 'LIKE', $value)
@@ -58,5 +58,28 @@ class Title extends Model
                 'titles.edition',
                 'platforms.name AS platform_name',
             );
+    }
+
+    static public function filterApprovedTitles($value)
+    {
+        $value = '%' . $value . '%';
+        $filteredTitles = Title::where('titles.name', 'LIKE', $value)
+            ->orWhere('platforms.name', 'LIKE', $value)
+            ->orWhere('edition', 'LIKE', $value)
+            ->orWhere('state', 'LIKE', $value)
+            ->join('platforms', 'titles.platform_id', '=', 'platforms.id')
+            ->select('titles.id')
+            ->get();
+        $query = Title::where('state', 1)
+            ->whereIn('titles.id', $filteredTitles)
+            ->join('platforms', 'titles.platform_id', '=', 'platforms.id')
+            ->select(
+                'titles.id',
+                'titles.name',
+                'titles.state',
+                'titles.edition',
+                'platforms.name AS platform_name',
+            );
+        return $query;
     }
 }

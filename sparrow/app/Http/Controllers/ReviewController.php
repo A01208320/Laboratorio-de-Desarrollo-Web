@@ -16,11 +16,28 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $auth_user = auth()->user();
-        $reviews = Review::getReviews($auth_user->id)->paginate(5);
+        $auth_user_id = auth()->user()->id;
+        if (request('query')) {
+            $reviews = $this->search()->paginate(5);
+        } else {
+            $reviews = Review::getReviews($auth_user_id)->paginate(5);
+        }
+
         return view('reviews.index', compact('reviews'));
     }
 
+    public function search()
+    {
+        $value = request('query');
+        $auth_user_id = auth()->user()->id;
+        if ($value == 'Recomendado' || $value == 'recomendado') {
+            $value = 1;
+        } else if ($value == 'No recomendado' || $value == 'no recomendado') {
+            $value = 0;
+        }
+        $reviews = Review::getFilteredReviews($auth_user_id, $value);
+        return $reviews;
+    }
     /**
      * Show the form for creating a new resource.
      *
