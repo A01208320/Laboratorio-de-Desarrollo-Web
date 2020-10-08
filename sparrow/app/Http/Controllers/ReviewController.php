@@ -16,9 +16,10 @@ class ReviewController extends Controller
     public function index()
     {
         //
-        $auth_user_id = auth()->user()->id;
-        $user = User::find($auth_user_id);
-        return $user->titles;
+        $auth_user = auth()->user();
+        $reviews = Review::getReviews($auth_user->id)->paginate(5);
+        //return $reviews;
+        return view('reviews.index', compact('reviews'));
     }
 
     /**
@@ -50,7 +51,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        //
+        return view('reviews.show', compact('review'));
     }
 
     /**
