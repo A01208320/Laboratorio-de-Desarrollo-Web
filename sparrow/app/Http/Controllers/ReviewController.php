@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Title;
 use App\Review;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,8 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        $titles = Title::all();
+        return view('reviews.create', compact('titles'));
     }
 
     /**
@@ -40,7 +42,14 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateReview();
+        $review = Review::firstOrCreate(([
+            'title_id' => $request->title_id,
+            'user_id' => auth()->user()->id,
+            'recommendation' => $request->recommendation,
+            'comment' => $request->comment,
+        ]));
+        return view('reviews.success');
     }
 
     /**
@@ -86,5 +95,18 @@ class ReviewController extends Controller
     public function destroy(Review $review)
     {
         //
+    }
+
+    public function validateReview()
+    {
+        $rules = [
+            'title_id' => ['required', 'unique:title_user'],
+            'recommendation' => ['required'],
+            'comment' => ['required'],
+        ];
+        $custom_messages = [
+            'comment.required' => 'Proporciona un comentario.',
+        ];
+        return request()->validate($rules, $custom_messages);
     }
 }

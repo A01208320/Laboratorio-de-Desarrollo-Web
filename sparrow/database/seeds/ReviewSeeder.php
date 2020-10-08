@@ -22,19 +22,19 @@ class ReviewSeeder extends Seeder
         Review::create([
             'title_id' => $hyruleWarrriors->id,
             'user_id' => $registeredUser->id,
-            'recomendation' => 1,
+            'recommendation' => 1,
             'comment' => $faker->paragraph($nbSentences = 10, $variableNbSentences = true)
         ]);
         Review::create([
             'title_id' => $horizon->id,
             'user_id' => $registeredUser->id,
-            'recomendation' => 1,
+            'recommendation' => 1,
             'comment' => $faker->paragraph($nbSentences = 10, $variableNbSentences = true)
         ]);
         Review::create([
             'title_id' => $cod->id,
             'user_id' => $registeredUser->id,
-            'recomendation' => 1,
+            'recommendation' => 1,
             'comment' => $faker->paragraph($nbSentences = 10, $variableNbSentences = true)
         ]);
     }

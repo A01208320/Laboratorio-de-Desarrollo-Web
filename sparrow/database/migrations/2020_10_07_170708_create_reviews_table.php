@@ -27,7 +27,7 @@ class CreateReviewsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
             $table->unique(['title_id', 'user_id']);
-            $table->boolean('recomendation');
+            $table->boolean('recommendation');
             $table->text('comment');
         });
     }
