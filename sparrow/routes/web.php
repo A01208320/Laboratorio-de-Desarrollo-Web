@@ -34,7 +34,8 @@ Route::get('registeredUser', function () {
     'auth', 'auth.RegisteredUser'
 ]);
 
-Route::resource("/titles", "TitleController");
+Route::resource("/titles", "TitleController")->except('show');
+
 Route::resource("/reviews", "ReviewController")->middleware([
     'auth', 'auth.RegisteredUser'
 ]);

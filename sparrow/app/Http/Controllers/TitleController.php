@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class TitleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index']);
+        $this->middleware('auth.RegisteredUser')->except(['index', 'create', 'store', 'edit', 'update', 'destroy', 'confirm']);
+        $this->middleware('auth.Administrator')->except(['index', 'create', 'store']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,19 +23,28 @@ class TitleController extends Controller
     public function index()
     {
         $auth_user = auth()->user();
-        $user = User::find($auth_user->id);
+        if ($auth_user) {
+            $user = User::find($auth_user->id);
+        } else {
+            $user = null;
+        }
         $titles = Title::getAllTitles();
         if (\Request::is('api/*')) {
             return response()->json($titles->get(), 200);
             exit();
         }
+
         if (request('query')) {
             $titles = $this->search()->paginate(5);
         } else {
-            if ($user->hasAnyRole('registeredUser')) {
-                $titles = Title::getApprovedTitles()->paginate(5);
+            if ($user) {
+                if ($user->hasAnyRole('registeredUser')) {
+                    $titles = Title::getApprovedTitles()->paginate(5);
+                } else {
+                    $titles = $titles->paginate(5);
+                }
             } else {
-                $titles = $titles->paginate(5);
+                $titles = Title::getApprovedTitles()->paginate(5);
             }
         }
         return view('titles.index', compact('titles'));
