@@ -6,6 +6,7 @@
 </div>
 
 <div class="card-body">
+    @hasRoles(['administrator', 'registeredUser'])
     <div class="row p-2 d-flex justify-content-between align-items-center">
         <form method="GET" action="/titles" class="d-flex justify-content-around align-items-center">
             @csrf
@@ -27,6 +28,7 @@
             </a>
         </div>
     </div>
+    @endhasRoles
     <div class="row p-2 d-flex justify-content-center">
         <x-titles.table :titles="$titles" />
     </div>

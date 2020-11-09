@@ -51,6 +51,9 @@
                                 <li class="nav-item mr-2 ml-2">
                                     <a class="nav-link {{ Request::path() === 'users' ? 'active' : '' }}" href="{{ route('titles.index') }}">Títulos</a>
                                 </li>
+                                <li class="nav-item mr-2 ml-2">
+                                    <a class="nav-link {{ Request::path() === 'igdb' ? 'active' : '' }}" href="{{ route('igdb.index') }}">IGDB</a>
+                                </li>
                                 @hasRole('registeredUser')
                                 <li class="nav-item mr-2 ml-2">
                                     <a class="nav-link {{ Request::path() === 'sesiones' ? 'active' : '' }}" href="{{ route('reviews.index') }}">Mis Reseñas</a>

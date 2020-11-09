@@ -34,10 +34,13 @@ Route::get('registeredUser', function () {
     'auth', 'auth.RegisteredUser'
 ]);
 
-Route::resource("/titles", "TitleController");
+Route::resource("/titles", "TitleController")->except('show');
+
 Route::resource("/reviews", "ReviewController")->middleware([
     'auth', 'auth.RegisteredUser'
 ]);
 Route::get("/titles/{title}/confirm", "TitleController@confirm")->name('titles.confirm')->middleware(['auth', 'auth.Administrator']);
 
 Route::get("/reviews/{review}/confirm", "ReviewController@confirm")->name('reviews.confirm')->middleware(['auth', 'auth.RegisteredUser']);
+
+Route::resource("/igdb", "IGDBController");
